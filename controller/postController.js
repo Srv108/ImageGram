@@ -16,7 +16,9 @@ export async function createPost (req,res){
 }
 
 export async function getAllPost (req,res){
-    console.log(req.file);
-
-    const post = await getAllPostService();
+    
+    return res.json({
+        success : true,
+        message : "Not implemented yet"
+    })
 }

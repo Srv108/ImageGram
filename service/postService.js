@@ -11,12 +11,12 @@ export const createPostService = async (createPostObject) => {
 
 export const getAllPostService = async () => {
     const post = await findAllPost();
-    
+
     return post;
 }
 
 export const deletePostService = async (postId) => {
-
+    
 }
 
 export const updatePostService = async () => {
