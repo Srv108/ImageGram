@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import DB_URL from './serverConfig.js';
+import { DB_URL } from './serverConfig.js';
 
 export default async function connectDB() {
-    console.log("Connecting to MongoDB with URI:", DB_URL); 
+    console.log("Connecting to MongoDB with URL:", DB_URL); 
     try {
         await mongoose.connect(DB_URL);
         console.log("MongoDB connected successfully! Hurray");

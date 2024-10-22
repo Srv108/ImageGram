@@ -1,8 +1,8 @@
-import Post from "../schema/post";
+import Post from "../schema/post.js";
 
 export const createPost = async (caption,image,user) => {
     try{
-        const newPost = Post.create({ caption,image,user });
+        const newPost = await Post.create({ caption,image,user });
         // const newPost = new Post({ caption,image,user });
         // await newPost.save();
         return newPost;
@@ -22,7 +22,7 @@ export const findAllPost = async () => {
 
 export const postById = async (id) => {
     try{
-        const post = Post.findById({id});
+        const post = await Post.findById({id});
         return post;
     }catch(error){
         console.log(error);
@@ -31,7 +31,7 @@ export const postById = async (id) => {
 
 export const deletePostById = async (id) => {
     try{
-        const post = Post.findByIdAndDelete(id);
+        const post = await Post.findByIdAndDelete(id);
         return post;
     }catch(error){
         console.log(error);
