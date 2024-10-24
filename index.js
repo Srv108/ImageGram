@@ -2,6 +2,7 @@ import express from 'express';
 import connectDB from './config/dbConfig.js';
 import { createPost } from './controller/postController.js';
 import { uploader } from './config/multerConfig.js';
+import apiRouter from './router/apiRouter.js';
 
 const PORT = 3300;
 
@@ -16,9 +17,9 @@ app.get('/ping/',(req,res) => {
     return res.json({ message: 'pong' + " " + req.query.name + " " +req.query.tittle});
 })
 
+app.use('/api',apiRouter);
 
-
-app.post('/posts',uploader.single('image'),createPost);
+// app.post('/posts',uploader.single('image'),createPost);
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

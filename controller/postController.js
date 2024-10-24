@@ -8,7 +8,7 @@ export async function createPost (req,res){
         caption: req.body.caption,
         image: req.file.location
     });
-    res.status(201).json({
+    return res.status(201).json({
         success: true,
         message: "Post created Successfully !",
         Data: post
@@ -16,7 +16,38 @@ export async function createPost (req,res){
 }
 
 export async function getAllPost (req,res){
-    console.log(req.file);
 
-    const post = await getAllPostService();
+    try{
+        const limit = req.query.limit || 10;
+        const offset = req.query.offset || 0;
+        const paginatedPost = await getAllPostService(offset,limit);
+
+        return res.status(201).json({
+            success: true,
+            message: "All post fetched successfully! Hui Hui!",
+            data: paginatedPost,
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error! "
+        })
+    }
+}
+
+
+export async function deletePostByid (req,res) {
+    try{
+        const post = await deletePostById();
+
+        return post;
+        
+    }catch(error){
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        })
+    }
 }
