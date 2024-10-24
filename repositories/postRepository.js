@@ -11,10 +11,20 @@ export const createPost = async (caption,image,user) => {
     }
 }
 
-export const findAllPost = async () => {
+export const findAllPost = async (offset,limit) => {
     try{
-        const posts = await Post.find();
+        const posts = await Post.find().sort({created: -1}).skip(offset).limit(limit);
         return posts;
+    }catch(error){
+        console.log(error);
+    }
+}
+
+export const countAllPost = async () => {
+    try{
+        const totalDocuments = await Post.countDocuments();
+        return totalDocuments;
+
     }catch(error){
         console.log(error);
     }
