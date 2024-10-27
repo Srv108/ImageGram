@@ -1,15 +1,11 @@
 import { createUserService } from "../service/userService.js";
 
+
+
+
 export async function createUser (req,res){
     try{
-
-        
-
-        const User = await createUserService({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        })
+        const User = await createUserService(req.body);
 
         return res.status(200).json({
             success: true,
@@ -19,6 +15,13 @@ export async function createUser (req,res){
 
     }catch(error){
         console.log(error);
+        if(error.status) {
+            return res.status(error.status).json({
+                success: false,
+                message: error.message
+            })
+        }
+                
         return res.status(501).json({
             success: false,
             message: "Failed to create User! ",

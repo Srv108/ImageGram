@@ -5,7 +5,7 @@ import userRouter from './user.js'
 const router = express.Router();
 
 router.use('/posts',postRouter);
-router.use('/signUp',userRouter);
+router.use('/user',userRouter);
 
 
 export default router;

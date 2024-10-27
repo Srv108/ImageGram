@@ -1,23 +1,28 @@
 import { createUser, findUserByEmail } from "../repositories/userRepository.js";
 
-export const createUserService = async (userObject) => {
-    
-    const username = userObject.username;
-    const email = userObject.email;
-    const password = userObject.password;
-    
-    const User = await createUser(username,email,password);
-    return User;
+export const createUserService = async (user) => {
+    try{
+        const User = await createUser(user);
+        return User;
+
+    }catch(error){
+        if(error.code === 11000){
+            throw {
+                status: 400,
+                message: "Email Already Registered!"
+            }
+        }
+        throw error;
+    }
 }
 
 
 export const findUserServiceByEmail = async (email) => {
-    const existingUser = await findUserByEmail(email);
-    if(existingUser){
-        return {
-            success: false,
-            message: "Email already registered !",
-            data: existingUser
-        }
+    try{
+        const user = await findUserByEmail(email);
+        return user;
+    }catch(error){
+        console.log(error);
     }
+    
 }
