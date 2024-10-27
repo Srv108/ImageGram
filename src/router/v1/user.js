@@ -5,6 +5,6 @@ import { createUser } from '../../controller/userController.js';
 
 const router = express.Router();
 
-router.post('/',validate(zodUserSchema),createUser);
+router.post('/signup',validate(zodUserSchema),createUser);
 
 export default router;
