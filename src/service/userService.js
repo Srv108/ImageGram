@@ -8,6 +8,7 @@ export const createUserService = async (user) => {
         return User;
 
     }catch(error){
+        console.log(error);
         if(error.code === 11000){
             throw {
                 status: 400,
