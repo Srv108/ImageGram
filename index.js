@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDB from './src/config/dbConfig.js';
 import apiRouter from './src/router/apiRouter.js';
+import { isAuthenticated } from './src/middleWares/authMiddleware.js';
 // import bodyParser from 'body-parser';
 
 const PORT = 3300;
@@ -11,10 +12,11 @@ app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({extended: true}));
 
-app.get('/ping/',(req,res) => {
+app.get('/ping',isAuthenticated,(req,res) => {
     console.log(req.query);
     console.log(req.body);
-    return res.json({ message: 'pong' + " " + req.query.name + " " +req.query.tittle});
+    console.log(req.user);
+    return res.json({ message: 'Hui Hui!'});
 })
 
 app.use('/api',apiRouter);

@@ -13,7 +13,7 @@ export const createPost = async (caption,image,user) => {
 
 export const findAllPost = async (offset,limit) => {
     try{
-        const posts = await Post.find().sort({created: -1}).skip(offset).limit(limit);
+        const posts = await Post.find().sort({created: -1}).skip(offset).limit(limit).populate('user','username email _id');
         return posts;
     }catch(error){
         console.log(error);
@@ -32,7 +32,7 @@ export const countAllPost = async () => {
 
 export const postById = async (id) => {
     try{
-        const post = await Post.findById({id});
+        const post = await Post.findById(id);
         return post;
     }catch(error){
         console.log(error);

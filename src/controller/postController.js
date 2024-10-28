@@ -2,6 +2,7 @@ import { createPostService, deletePostService, getAllPostService, updatePostServ
 
 export async function createPost (req,res){
     console.log(req.file);
+    console.log(req.user);
     // call the service layer -> repository layer -> database schema 
     if(!req.file || !req.file.location) {
         return res.status(400).json({
@@ -9,10 +10,11 @@ export async function createPost (req,res){
             message: "Image is required"
         });
     }
-    
+
     const post = await createPostService({
         caption: req.body.caption,
-        image: req.file.location
+        image: req.file.location,
+        user: req.user._id
     });
     return res.status(201).json({
         success: true,
@@ -47,12 +49,14 @@ export async function getAllPost (req,res){
 export async function deletePost (req,res) {
     try{
         const postId = req.params.id;
-        const response = await deletePostService(postId);
+        const user = req.user._id;
 
-        if(!response){
+        const response = await deletePostService(postId,user);
+
+        if(response.status){
             return res.status(401).json({
                 success: false,
-                message: "Post Doesn't Exist"
+                message: response.message
             })
         }
 

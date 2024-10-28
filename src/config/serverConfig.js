@@ -12,3 +12,5 @@ export const AWS_REGION = process.env.AWS_REGION;
 export const DB_URL = process.env.DB_TOKEN;
 
 export const AWS_BUCKET_NAME = process.env.AWS_BUCKET_NAME;
+
+export const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
