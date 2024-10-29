@@ -79,6 +79,7 @@ export async function updatePost (req,res) {
     try{
         console.log("Req File: ",req.file);
         const updateObject = req.body;
+
         
         if(req.file){
             updateObject.image = req.file.location;

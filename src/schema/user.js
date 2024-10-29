@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
             message : ("Invalid Email Format")
         }
     },
+    role: {
+        type: String,
+        default: "user",
+        enum: ["user","admin"]
+    },
     password: {
         type: String,
         required: true,
