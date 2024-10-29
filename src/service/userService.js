@@ -41,7 +41,7 @@ export const signinUserService = async (userDetails) => {
             throw error;
         }
 
-        const token = generateToken({email: userDetails.email,username: user.username,_id: user._id});
+        const token = generateToken({email: userDetails.email,username: user.username,_id: user._id,role: user.role || "user"});
         
         return token;
         

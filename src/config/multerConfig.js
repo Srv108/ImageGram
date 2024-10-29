@@ -23,3 +23,23 @@ export const uploader = multer({
         }
     })
 })
+
+export const deleter = async (fileName) => {
+    let params = {
+        Bucket: AWS_BUCKET_NAME,
+        Key: `feed/${fileName}`
+    };
+
+    try{
+        await s3.deleteObject(params, async function (error, data) {
+            if (error) {
+                console.log('Delete S3 Object error: ', error.stack);
+            } else {
+                console.log(data);
+                console.log(fileName, " delete success");
+            }
+        });
+    }catch(error){
+
+    }
+}
