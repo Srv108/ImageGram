@@ -1,5 +1,5 @@
 import { createUser, findUserByEmail } from "../repositories/userRepository.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { generateToken } from "../utils/jwt.js";
 
 export const createUserService = async (user) => {
