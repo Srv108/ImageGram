@@ -1,22 +1,22 @@
 import mongoose from "mongoose";
 
 const likeSchema = new mongoose.Schema({
+    onModel: {
+        type: String,
+        required: true,
+        enum : ["Post","Comment"],
+    },
+    likableId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        refPath: onModel,
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // References the User model
         required: true,
+        ref: "User"
     },
-    resource: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-        },
-        type: {
-            type: String,
-            required: true,
-            enum: ['Post', 'Comment'], // Define the type of resource being liked
-        },
-    },
+
 },{timestamps: true});
 
 const likes = mongoose.model("Likes",likeSchema);

@@ -1,26 +1,40 @@
 import mongoose from "mongoose";
-import { number } from "zod";
 
 const commentSchema = new mongoose.Schema({
-    author:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    content:{
+        type: String,
+        required: true,
+        minLength: 1
     },
-    post:{
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Post",
-        required: true
+        required: true,
+        ref: "User",
     },
-    likes:{
-        type: Number,
-        default: 0
+    onModel: {
+        type: String,
+        required: true,
+        enum: ["Comment","Post"]
     },
-    replies:[{
+    commentableId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Comment",
+        required: true,
+        refPath: "onModel"
+    },
+    replies: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ],
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Likes"
+        }
+    ]
 
-    }]
+
 },{timestamps: true});
 
 const comment = mongoose.model("Comment",commentSchema);
