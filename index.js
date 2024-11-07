@@ -6,10 +6,19 @@ import { isAuthenticated } from './src/middleWares/authMiddleware.js';
 import { options } from './src/utils/swaggerDocs.js';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import { rateLimit } from 'express-rate-limit';
 
 const PORT = 3300;
 
 const app = express();
+
+const limiter = rateLimit({
+    windowMs: 0.5 * 60 * 1000,
+    limit: 5,
+    message: "You have crossed your limit !"
+})
+
+app.use(limiter);
 
 app.use(express.json());
 app.use(express.text());
